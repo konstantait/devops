@@ -1,0 +1,23 @@
+fso: tests
+thershold: 2
+files: 
+tests/tests00.xml
+tests/tests10.xml
+tests/tests11.xml
+
+tests00.xml - skipped, not valid junit xml file
+
+tests10.xml - testsuite Tests.Registration.1
+error: Division by zero.
+failure: Expected value did not match.
+failure: Expected value did not match.
+
+tests10.xml - testsuite Tests.Registration.2
+OK
+
+tests11.xml - testsuite Tests.Registration
+error: Division by zero.
+failure: Expected value did not match.
+
+max errors in separate testsuites: 1
+max failures in separate testsuites: 2

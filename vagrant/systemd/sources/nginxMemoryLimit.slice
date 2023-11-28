@@ -1,0 +1,5 @@
+[Unit]
+Description=Slice that limits memory for nginx services
+
+[Slice]
+MemoryMax=50M

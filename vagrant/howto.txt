@@ -1,0 +1,148 @@
+# ESXi 6.5 & Xubuntu 22.04.3 LTS (light XFCE for RDP-connection)
+# ESXi enable nested virtualization: Expose hardware assisted virtualization to the guest OS
+
+$ sudo apt update && sudo apt upgrade -y
+
+$ sudo apt install openssh-server -y
+$ sudo ufw allow ssh
+$ sudo ufw enable
+$ sudo ufw status
+
+# Install xRDP for Xubuntu XFCE
+# Screensaver Preferences -> Screensaver & Lock Screen OFF
+# -----------------------------------
+$ wget https://www.c-nergy.be/downloads/xRDP/xrdp-installer-1.4.7.zip
+$ unzip xrdp-installer-1.4.7.zip
+$ chmod +x xrdp-installer-1.4.7.sh
+$ ./xrdp-installer-1.4.7.sh
+$ sudo ufw allow 3389/tcp
+
+# Generate & add host public key to GitHub account
+# Setting -> SSH and GPG keys -> SSH keys
+# -----------------------------------
+$ ssh-keygen -t rsa -b 4096 -C "konstanta.it@gmail.com"
+$ cat .ssh/id_rsa.pub
+
+# Generate GitHub Personal Access Token
+# Setting -> Developer Setting -> Personal access tokens -> Tokens (classic)
+# -----------------------------------
+$ sudo apt install git
+$ git config --global user.name "John Doe"
+$ git config --global user.email konstant.it@gmail.com
+$ mkdir ~/devops
+$ git clone git@github.com:konstantait/hillel-devops.git ~/devops
+$ cd devops
+$ echo -e '\n# Vagrant\n.vagrant/\n*.log' >> .gitignore
+$ git remote set-url origin https://konstantait:<token>github.com>/konstantait/hillel-devops.git
+$ git remote -v
+$ history -c && history -w
+
+$ sudo hostname xubuntu
+$ sudo nano /etc/hostname
+$ sudo nano /etc/hosts
+$ sudo reboot
+
+# Add software packages official GPG key & set up the repository
+# -----------------------------------
+$ sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --dearmor -o /etc/apt/keyrings/virtualbox.gpg
+$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/hashicorp.gpg
+$ curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
+$ sudo chmod a+r /etc/apt/keyrings/virtualbox.gpg
+$ sudo chmod a+r /etc/apt/keyrings/hashicorp.gpg
+$ sudo chmod a+r /etc/apt/keyrings/microsoft.gpg
+$ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/virtualbox.gpg] http://download.virtualbox.org/virtualbox/debian jammy contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list > /dev/null
+$ echo "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+$ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+$ sudo apt update
+
+# Virtualbox 7.0 install
+# -----------------------------------
+$ sudo apt install virtualbox-7.0 -y
+$ apt-cache policy virtualbox-7.0
+# systemctl status vboxdrv
+# sudo systemctl enable vboxdrv --now
+$ vboxmanage -v | cut -dr -f1
+7.0.10
+$ wget https://download.virtualbox.org/virtualbox/7.0.10/Oracle_VM_VirtualBox_Extension_Pack-7.0.10.vbox-extpack
+$ sudo vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-7.0.10.vbox-extpack -y
+$ vboxmanage list extpacks
+$ sudo usermod -a -G vboxusers $USER
+$ sudo reboot
+
+# Vagrant install
+# -----------------------------------
+$ sudo apt install vagrant -y
+$ vagrant -v | cut -d " " -f2
+2.3.7 
+$ vagrant autocomplete install --bash
+$ vagrant plugin install vagrant-env
+
+# Vagrant main files structure
+# -----------------------------------
+$ sudo apt install tree -y
+$ vagrant box add bento/ubuntu-22.04 --provider=virtualbox
+$ vagrant box list
+bento/ubuntu-22.04 (virtualbox, 202303.13.0)
+$ tree -a ~/.vagrant.d
+├── boxes
+│   └── bento-VAGRANTSLASH-ubuntu-22.04
+│       ├── 202303.13.0
+│       │   └── virtualbox
+│       │       ├── box.ovf
+│       │       ├── metadata.json
+│       │       ├── ubuntu-22.04-amd64-disk001.vmdk
+│       │       └── Vagrantfile
+│       └── metadata_url
+├── data
+│   ├── checkpoint_cache
+│   ├── checkpoint_signature
+│   └── machine-index
+│       └── index.lock
+├── gems
+│   └── 3.1.4
+├── insecure_private_key
+├── rgloader
+│   └── loader.rb
+├── setup_version
+└── tmp
+
+# Vagrant local files structure
+# -----------------------------------
+$ mkdir vagrant && cd vagrant
+$ vagrant init --minimal bento/ubuntu-22.04
+$ tree -a ~/vagrant
+├── .vagrant
+│   └── rgloader
+│       └── loader.rb
+└── Vagrantfile
+$ vagrant up
+$ vagrant global-status
+$ tree -a ~/vagrant
+├── .vagrant
+│   ├── machines
+│   │   └── default
+│   │       └── virtualbox
+│   │           ├── action_provision
+│   │           ├── action_set_name
+│   │           ├── box_meta
+│   │           ├── creator_uid
+│   │           ├── id
+│   │           ├── index_uuid
+│   │           ├── private_key
+│   │           ├── synced_folders
+│   │           └── vagrant_cwd
+│   └── rgloader
+│       └── loader.rb
+└── Vagrantfile
+$ vagrant halt
+$ vagrant destroy && rm -rf .vagrant
+
+# Visual Studio Code install
+# Remote SSH plugins & copy vagrant ssh config
+# -----------------------------------
+$ sudo apt install code
+$ vagrant up
+$ vagrant ssh-config >> ~/.ssh/config
+$ cat ~/.ssh/config

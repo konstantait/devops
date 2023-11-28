@@ -1,0 +1,128 @@
+● nginxMemoryLimit.slice - Slice that limits memory for nginx services
+     Loaded: loaded (/etc/systemd/system/nginxMemoryLimit.slice; static)
+     Active: active since Wed 2023-08-23 23:20:37 UTC; 24s ago
+      Tasks: 9
+     Memory: 10.2M (max: 50.0M available: 39.7M)
+        CPU: 394ms
+     CGroup: /nginxMemoryLimit.slice
+             ├─nginx@8081.service
+             │ ├─2848 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8081/nginx.conf"
+             │ ├─2849 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             │ └─2850 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             ├─nginx@8082.service
+             │ ├─3002 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8082/nginx.conf"
+             │ ├─3003 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             │ └─3004 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             └─nginx@8083.service
+               ├─3156 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8083/nginx.conf"
+               ├─3157 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+               └─3158 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Aug 23 23:20:37 nginx systemd[1]: Created slice Slice that limits memory for nginx services.
+
+● nginx@8083.service - A high performance web server and a reverse proxy server on port 8083
+     Loaded: loaded (/etc/systemd/system/nginx@.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:50 UTC; 11s ago
+       Docs: man:nginx(8)
+   Main PID: 3156 (nginx)
+      Tasks: 3 (limit: 2233)
+     Memory: 3.3M (available: 39.7M)
+        CPU: 125ms
+     CGroup: /nginxMemoryLimit.slice/nginx@8083.service
+             ├─3156 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8083/nginx.conf"
+             ├─3157 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             └─3158 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Aug 23 23:20:50 nginx systemd[1]: Starting A high performance web server and a reverse proxy server on port 8083...
+Aug 23 23:20:50 nginx systemd[1]: Started A high performance web server and a reverse proxy server on port 8083.
+
+● nginx@8082.service - A high performance web server and a reverse proxy server on port 8082
+     Loaded: loaded (/etc/systemd/system/nginx@.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:44 UTC; 18s ago
+       Docs: man:nginx(8)
+   Main PID: 3002 (nginx)
+      Tasks: 3 (limit: 2233)
+     Memory: 3.3M (available: 39.7M)
+        CPU: 137ms
+     CGroup: /nginxMemoryLimit.slice/nginx@8082.service
+             ├─3002 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8082/nginx.conf"
+             ├─3003 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             └─3004 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Aug 23 23:20:44 nginx systemd[1]: Starting A high performance web server and a reverse proxy server on port 8082...
+Aug 23 23:20:44 nginx systemd[1]: Started A high performance web server and a reverse proxy server on port 8082.
+
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:24 UTC; 37s ago
+       Docs: man:nginx(8)
+   Main PID: 2620 (nginx)
+      Tasks: 3 (limit: 2233)
+     Memory: 3.8M
+        CPU: 101ms
+     CGroup: /system.slice/nginx.service
+             ├─2620 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─2623 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             └─2624 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Aug 23 23:20:24 nginx systemd[1]: Starting A high performance web server and a reverse proxy server...
+Aug 23 23:20:24 nginx systemd[1]: Started A high performance web server and a reverse proxy server.
+
+● nginx@8081.service - A high performance web server and a reverse proxy server on port 8081
+     Loaded: loaded (/etc/systemd/system/nginx@.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:38 UTC; 24s ago
+       Docs: man:nginx(8)
+   Main PID: 2848 (nginx)
+      Tasks: 3 (limit: 2233)
+     Memory: 3.4M (available: 39.7M)
+        CPU: 132ms
+     CGroup: /nginxMemoryLimit.slice/nginx@8081.service
+             ├─2848 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on; -c /etc/nginx@8081/nginx.conf"
+             ├─2849 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+             └─2850 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Aug 23 23:20:37 nginx systemd[1]: Starting A high performance web server and a reverse proxy server on port 8081...
+Aug 23 23:20:38 nginx systemd[1]: Started A high performance web server and a reverse proxy server on port 8081.
+● trackBlacklistedIP.service - Tracks blacklisted ip in nginx access.log file
+     Loaded: loaded (/etc/systemd/system/trackBlacklistedIP.service; disabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:55 UTC; 7s ago
+TriggeredBy: ● trackBlacklistedIP.timer
+   Main PID: 3262 (bash)
+      Tasks: 3 (limit: 2233)
+     Memory: 804.0K
+        CPU: 16ms
+     CGroup: /system.slice/trackBlacklistedIP.service
+             ├─3262 /bin/bash /opt/trackLogfileKeyword.sh /var/log/nginx/access@8081.log 10.0.2.2
+             ├─3263 tail -fn0 /var/log/nginx/access@8081.log
+             └─3264 /bin/bash /opt/trackLogfileKeyword.sh /var/log/nginx/access@8081.log 10.0.2.2
+
+Aug 23 23:20:55 nginx systemd[1]: Started Tracks blacklisted ip in nginx access.log file.
+○ alertTelegramDiskQuota.service - Tracks disk space and send alert to telegram
+     Loaded: loaded (/etc/systemd/system/alertTelegramDiskQuota.service; disabled; vendor preset: enabled)
+     Active: inactive (dead) since Wed 2023-08-23 23:21:00 UTC; 2s ago
+TriggeredBy: ● alertTelegramDiskQuota.timer
+    Process: 3368 ExecStart=/bin/bash /opt/alertTelegramDiskQuota.sh ${THRESHOLD} ${API_TOKEN} ${CHAT_ID} (code=exited, status=0/SUCCESS)
+   Main PID: 3368 (code=exited, status=0/SUCCESS)
+        CPU: 497ms
+
+Aug 23 23:20:59 nginx systemd[1]: Started Tracks disk space and send alert to telegram.
+Aug 23 23:21:00 nginx bash[3375]: {"ok":true,"result":{"message_id":13,"from":{"id":6306229995,"is_bot":true,"first_name":"hillel-devops","username":"HillelDevopsBot"},"chat":{"id":478055558,"first_name":"\u0410\u043d\u0434\u0440\u0435\u0439","last_name":"\u0420\u0443\u0434\u0435\u043d\u043a\u043e","type":"private"},"date":1692832861,"text":"Free space is critically low. Used: 14"}}
+Aug 23 23:21:00 nginx systemd[1]: alertTelegramDiskQuota.service: Deactivated successfully.
+● trackBlacklistedIP.service - Tracks blacklisted ip in nginx access.log file
+     Loaded: loaded (/etc/systemd/system/trackBlacklistedIP.service; disabled; vendor preset: enabled)
+     Active: active (running) since Wed 2023-08-23 23:20:55 UTC; 2min 3s ago
+TriggeredBy: ● trackBlacklistedIP.timer
+   Main PID: 3262 (bash)
+      Tasks: 3 (limit: 2233)
+     Memory: 844.0K
+        CPU: 62ms
+     CGroup: /system.slice/trackBlacklistedIP.service
+             ├─3262 /bin/bash /opt/trackLogfileKeyword.sh /var/log/nginx/access@8081.log 10.0.2.2
+             ├─3263 tail -fn0 /var/log/nginx/access@8081.log
+             └─3264 /bin/bash /opt/trackLogfileKeyword.sh /var/log/nginx/access@8081.log 10.0.2.2
+
+Aug 23 23:20:55 nginx systemd[1]: Started Tracks blacklisted ip in nginx access.log file.
+Aug 23 23:21:45 nginx bash[3264]: 10.0.2.2 - - [23/Aug/2023:23:21:45 +0000] "GET / HTTP/1.1" 200 406 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0"
+Aug 23 23:21:47 nginx bash[3264]: 10.0.2.2 - - [23/Aug/2023:23:21:47 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0"
+Aug 23 23:21:48 nginx bash[3264]: 10.0.2.2 - - [23/Aug/2023:23:21:48 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0"
+Aug 23 23:21:48 nginx bash[3264]: 10.0.2.2 - - [23/Aug/2023:23:21:48 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0"

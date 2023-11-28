@@ -1,0 +1,10 @@
+
+# Vagrant
+.vagrant/
+*.log
+
+# Visual Studio Code
+*.code-workspace
+
+# Environment
+.env

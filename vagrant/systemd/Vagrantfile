@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+boxVersion = "bento/ubuntu-22.04"
+
+masterName = "nginx"
+masterCpus = 2
+masterMemory = 2048
+
+basePort = 8000
+firstPort = 8081
+lastPort = 8083
+
+# $setEnvironment = <<-'SCRIPT'
+# sudo tee "/etc/profile.d/setEnvironment.sh" > "/dev/null" <<EOF
+# export KEYWORD=#{ENV['KEYWORD']}
+# export KEYWORD_FILE=#{ENV['KEYWORD_FILE']}
+# EOF
+# SCRIPT
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = boxVersion
+  config.vm.box_check_update = false
+
+  # config.env.enable
+  # config.vm.provision "environment", type: "shell", inline: $setEnvironment, run: "always"
+  config.vm.provision "update", type: "shell", inline: "apt-get update"
+  config.vm.provision "midnight", type: "shell", inline: "apt-get install mc -y"
+  config.vm.define masterName do |master|
+    master.vm.provider "virtualbox" do |v|
+      v.name = masterName
+      v.cpus = masterCpus
+      v.memory = masterMemory
+    end
+    master.vm.hostname = masterName
+    master.vm.network "forwarded_port", guest: 80, host: basePort
+    master.vm.provision "nginx", type: "shell", inline: "apt-get install nginx -y"
+    
+    master.vm.provision :shell, :path => "./scripts/modifyMultiInstance.sh", :name => "modify multi instance"
+    (firstPort..lastPort).each do |port|
+      master.vm.network "forwarded_port", guest: port, host: port
+      master.vm.provision :shell, :path => "./scripts/modifyInstance.sh", :args => [port], :name => "modify instance"
+      master.vm.provision :shell, :path => "./scripts/startInstance.sh", :args => [port], :name => "start instance"
+    end
+    
+    master.vm.provision :shell, :path => "./scripts/trackBlacklistedIP.sh"
+    master.vm.provision :shell, :path => "./scripts/alertDiskQuota.sh"
+    
+    master.vm.provision :shell, :path => "./scripts/collectSources.sh", :name => "collect sources"
+    master.vm.provision :shell, :path => "./scripts/collectResults.sh", :name => "collect results"
+
+  end
+end
