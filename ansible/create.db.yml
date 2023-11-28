@@ -1,0 +1,26 @@
+# Injected environment variables:
+# MYSQL_DB
+# MYSQL_USER
+# MYSQL_PASSWORD
+# S3_NAME
+
+# Injected source files:
+# .environment -> /home/ubuntu/.environment
+# backup.sh -> /home/ubuntu/backup.sh
+# backup.timer -> /etc/systemd/system/backup.timer
+# backup.service -> /etc/systemd/system/backup.service
+# update.sh -> /home/ubuntu/update.sh
+# update.service -> /etc/systemd/system/update.service
+
+---
+- name: prepare db ami
+  hosts: all
+
+  environment:
+    MYSQL_DB: "{{ db_name }}"
+    MYSQL_USER: "{{ db_user }}"
+    MYSQL_PASSWORD: "{{ db_password }}"
+    S3_NAME: "{{ s3_name }}"
+
+  roles:
+    - db

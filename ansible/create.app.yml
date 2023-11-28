@@ -1,0 +1,31 @@
+# Injected environment variables:
+# MYSQL_DB
+# MYSQL_USER
+# MYSQL_PASSWORD
+# MYSQL_HOST
+# SECRET_KEY
+# APP_PORT
+# APP_URL
+
+# Injected source files:
+# .environment -> /home/ubuntu/.environment
+# app.service -> /etc/systemd/system/app.service
+# app.conf -> /etc/nginx/sites-available/app.conf
+# update.sh -> /home/ubuntu/update.sh
+# update.service -> /etc/systemd/system/update.service
+
+---
+- name: prepare app ami
+  hosts: all
+
+  environment:
+    MYSQL_DB: "{{ db_name }}"
+    MYSQL_USER: "{{ db_user }}"
+    MYSQL_PASSWORD: "{{ db_password }}"
+    MYSQL_HOST: "{{ db_ip_local }}"
+    SECRET_KEY: "{{ app_key }}"
+    APP_PORT: "{{ app_port }}"
+    APP_URL: "{{ app_url }}"
+
+  roles:
+    - app

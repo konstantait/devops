@@ -1,0 +1,6 @@
+---
+- name: prepare basis ami
+  hosts: all
+
+  roles:
+    - basis

@@ -1,10 +1,12 @@
-
-# Vagrant
-.vagrant/
+*.env
+*.key
 *.log
+venv/
 
-# Visual Studio Code
-*.code-workspace
-
-# Environment
-.env
+# Terraform
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform.lock.hcl
+.terraform/
